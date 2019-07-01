@@ -4,13 +4,12 @@ import 'package:flare_flutter/flare_actor.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.teal,
       ),
       home: MyHomePage(title: 'Cow Animation'),
     );
@@ -26,19 +25,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String animationName = 'init';
+  int _index = 0;
+  List _animationNames = ['init', 'first', 'middle', 'last'];
 
   void _getMilk() {
     setState(() {
-      if (animationName == 'init') {
-        animationName = 'first';
-      } else if (animationName == 'first') {
-        animationName = 'middle';
-      } else if (animationName == 'middle') {
-        animationName = 'last';
-      } else {
-        animationName = 'init';
-      }
+      _index = _index + 1 < _animationNames.length ? _index + 1 : 0;
     });
   }
 
@@ -49,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Container(
-        color: Color(0xffe0f2f1),
+        color: Color(0xffFFECB3),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -59,15 +51,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 300,
                 child: FlareActor(
                   'assets/cow_animation.flr',
-                  animation: animationName,
+                  animation: _animationNames[_index],
                   alignment: Alignment.center,
                   fit: BoxFit.contain,
                 ),
               ),
-              RaisedButton(
+              FlatButton(
+                color: Colors.teal,
                 onPressed: _getMilk,
                 child: Text(
                   'Get Milk',
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    letterSpacing: 0.75,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ],
