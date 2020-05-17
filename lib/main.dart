@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
+import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
@@ -30,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _getMilk() {
     setState(() {
-      _index = _index + 1 < _animationNames.length ? _index + 1 : 0;
+      _index = (_index + 1) % _animationNames.length;
     });
   }
 
